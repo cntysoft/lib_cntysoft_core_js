@@ -56,7 +56,7 @@ Ext.define('Cntysoft.Kernel.StdPath',{
         */
        getUploadPath : function()
        {
-            return this.getSysDataPath() + Cntysoft.Const.UPLOAD_DIR;
+            return this.getSysDataPath() + '/' + Cntysoft.Const.UPLOAD_DIR;
        },
        /**
         * 获取系统允许的上传路径
