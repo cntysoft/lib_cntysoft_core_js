@@ -82,6 +82,20 @@ Ext.define('Cntysoft.Kernel.Const',{
        * @property {String} UPLOAD_DIR
        */
       UPLOAD_DIR : 'UploadFiles',
+       /**
+        * 系统上传文件目录
+        *
+        * @readonly
+        * @property {String} ATTACHMENT_DIR
+        */
+       ATTACHMENT_DIR : 'Attachment',
+       /**
+        * 系统上传头像目录
+        *
+        * @readonly
+        * @property {String} AVATAR_DIR
+        */
+       AVATAR_DIR : 'Avatar',
       /**
        * 系统资源文件夹名称，一般存放ExtJs框架的一些图片和Css资源
        *
