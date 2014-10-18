@@ -12,7 +12,7 @@ Ext.define('Cntysoft.Framework.Core.Filesystem',{
      mixins : {
         callSys : 'Cntysoft.Mixin.CallSys'
     },
-    scriptName : 'Filesystem',
+    scriptName : 'FilesystemHandler',
     /**
      * 查看文件内容
      * 
