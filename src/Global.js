@@ -1,5 +1,49 @@
 Ext.define('Cntysoft.Global',{
    singleton : true,
+   /**
+    * 系统范围的CSS默认前缀， 暂时还没有使用
+    *
+    * @property {String} baseCSSPrefix
+    * @readonly
+    */
+   baseCSSPrefix : 'christ-',
+   /**
+    * 系统在启动过程中加载的文件的总数，这里的数量不包括CSS图片文件，仅仅是Js脚本文件
+    *
+    * @property {number} SYS_LOAD_FILES
+    */
+   SYS_LOAD_FILES : 0,
+
+   /**
+    * 全局的loadMask对象，维护一个全局的信息提示对象，这样可以节省内存
+    *
+    * @property {Ext.LoadMask} [loadMask=null]
+    * @private
+    */
+   loadMask : null,
+   /**
+    * 全局脚本加载提示对象
+    *
+    * @property {Cntysoft.Kernel.CoreComp.ScriptLoadMask} [scriptLoadMask=null]
+    * @private
+    */
+   scriptLoadMask : null,
+
+
+   /**
+    * 系统的应用管理器
+    *
+    * @private
+    * @property {Cntysoft.Kernel.AppManager} appManager 系统界面的底部
+    */
+   appManager : null,
+   /**
+    * 系统的语言类型，用于支持多语言
+    *
+    * @private
+    * @property {String} language
+    */
+   language : window.CNTYSOFT_LANG,
 
    /**
     * 显示脚本加载提示信息对象
@@ -357,6 +401,7 @@ Ext.define('Cntysoft.Global',{
       showErrorQuestionWindow : alias(g, 'showErrorQuestionWindow'),
       showErrorWindow : alias(g, 'showErrorWindow'),
       showLoadScriptMask : alias(g, 'showLoadScriptMask'),
-      hideLoadScriptMask : alias(g, 'hideLoadScriptMask')
+      hideLoadScriptMask : alias(g, 'hideLoadScriptMask'),
+      getLangType : alias(g, 'getLangType')
    });
 });
