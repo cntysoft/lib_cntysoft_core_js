@@ -50,34 +50,6 @@ Ext.define('Cntysoft.Kernel.StdPath',{
            return '/' + Cntysoft.Const.DATA_DIR;
        },
        /**
-        *  获取系统的上传路径
-        *
-        * @returns {string}
-        */
-       getDefaultUploadPath : function()
-       {
-            return Cntysoft.Const.ATTACHMENT_DIR;
-       },
-       /**
-        * 获取系统头像上传路径
-        *
-        * @returns {Cntysoft.Kernel.Const.AVATAR_DIR|*|String}
-        */
-       getAvatarUploadPath : function()
-       {
-           return Cntysoft.Const.AVATAR_DIR;
-       },
-       /**
-        * 获取系统允许的上传路径
-        *@TODO 这个路径需要在斟酌
-        *
-        * @returns {string}
-        */
-       getUploadAllowPath : function()
-       {
-           return [this.getDefaultUploadPath(), this.getAvatarUploadPath()];
-       },
-       /**
         * 返回系统第三方的JS库路径
         *
         * @returns {string}
