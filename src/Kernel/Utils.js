@@ -53,14 +53,14 @@ Ext.define('Cntysoft.Kernel.Utils',{
     * @param {Object} errorMap 指定的错误代码与描述信息映射数据
     * @param {Object} errorMapArgs 提供给ErrorMap的参数
     */
-   processApiError : function(response, errorMap, errorMapArgs)
+   processApiError : function(response, errorMap, errorMapArgs, callback, scope)
    {
       if(!response.status){
          var msg;
          var desMsg;
          var errorCode = response.errorCode;
          var context = response.errorInfo.context;
-         if(Christ.isDebugMode){
+         if(window.CNTYSOFT_IS_DEBUG){
             msg = response.msg;
          } else{
             msg = Cntysoft.GET_LANG_TEXT('ERROR.API_CALL_ERROR');
@@ -92,8 +92,8 @@ Ext.define('Cntysoft.Kernel.Utils',{
                }
             }
          }
-         Cntysoft.showErrorWindow(desMsg);
-         if(Christ.isDebugMode){
+         Cntysoft.showErrorWindow(desMsg, callback, scope);
+         if(window.CNTYSOFT_IS_DEBUG){
             Cntysoft.raiseError(
                Ext.getClassName(this),
                'processApiError',

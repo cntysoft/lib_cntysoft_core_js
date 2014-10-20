@@ -40,42 +40,49 @@ Ext.define('Cntysoft.Kernel.StdPath',{
       {
          return '/Resources/Platform';
       },
-       /**
-        * 获取系统数据路径
-        *
-        * @return {String}
-        */
-       getSysDataPath : function()
-       {
-           return '/' + Cntysoft.Const.DATA_DIR;
-       },
-       /**
-        *  获取系统的上传路径
-        *
-        * @returns {string}
-        */
-       getUploadPath : function()
-       {
-            return this.getSysDataPath() + Cntysoft.Const.UPLOAD_DIR;
-       },
-       /**
-        * 获取系统允许的上传路径
-        *@TODO 这个路径需要在斟酌
-        *
-        * @returns {string}
-        */
-       getUploadAllowPath : function()
-       {
-           return this.getUploadPath();
-       },
-       /**
-        * 返回系统第三方的JS库路径
-        *
-        * @returns {string}
-        */
-       getVenderPath : function()
-       {
-           return '/JsLibrary';
-       }
+      /**
+       * @return {String}
+       */
+      getResourcePath : function()
+      {
+         return '/Resources';
+      },
+      /**
+       * 获取系统数据路径
+       *
+       * @return {String}
+       */
+      getSysDataPath : function()
+      {
+         return '/' + Cntysoft.Const.DATA_DIR;
+      },
+      /**
+       *  获取系统的上传路径
+       *
+       * @returns {string}
+       */
+      getUploadPath : function()
+      {
+         return this.getSysDataPath() + Cntysoft.Const.UPLOAD_DIR;
+      },
+      /**
+       * 获取系统允许的上传路径
+       *@TODO 这个路径需要在斟酌
+       *
+       * @returns {string}
+       */
+      getUploadAllowPath : function()
+      {
+         return this.getUploadPath();
+      },
+      /**
+       * 返回系统第三方的JS库路径
+       *
+       * @returns {string}
+       */
+      getVenderPath : function()
+      {
+         return '/JsLibrary';
+      }
    }
 });
