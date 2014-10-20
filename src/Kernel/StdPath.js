@@ -40,23 +40,30 @@ Ext.define('Cntysoft.Kernel.StdPath',{
       {
          return '/Resources/Platform';
       },
-       /**
-        * 获取系统数据路径
-        *
-        * @return {String}
-        */
-       getSysDataPath : function()
-       {
-           return '/' + Cntysoft.Const.DATA_DIR;
-       },
-       /**
-        * 返回系统第三方的JS库路径
-        *
-        * @returns {string}
-        */
-       getVenderPath : function()
-       {
-           return '/JsLibrary';
-       }
+      /**
+       * @return {String}
+       */
+      getResourcePath : function()
+      {
+         return '/Resources';
+      },
+      /**
+       * 获取系统数据路径
+       *
+       * @return {String}
+       */
+      getSysDataPath : function()
+      {
+         return '/' + Cntysoft.Const.DATA_DIR;
+      },
+      /**
+       * 返回系统第三方的JS库路径
+       *
+       * @returns {string}
+       */
+      getVenderPath : function()
+      {
+         return '/JsLibrary';
+      }
    }
 });

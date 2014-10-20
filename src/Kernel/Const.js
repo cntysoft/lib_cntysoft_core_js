@@ -5,18 +5,11 @@
  * @copyright  Copyright (c) 2010-2011 Cntysoft Technologies China Inc. <http://www.cntysoft.com>
  * @license    http://www.cntysoft.com/license/new-bsd     New BSD License
  */
-/*
- * Cntysoft Cloud Software Team
- *
- * @author SOFTBOY <cntysoft@163.com>
- * copyright  Copyright (c) 2010-2011 Cntysoft Technologies China Inc. <http://www.cntysoft.com>
- * license    http://www.cntysoft.com/license/new-bsd     New BSD License
- */
 /**
  * 系统范围以内的常量定义
  */
 Ext.define('Cntysoft.Kernel.Const',{
-   statics : {
+   inheritableStatics : {
       /**
        * 第三方扩展的文件夹名称，比如 CkEditor源文件就存放这里
        *

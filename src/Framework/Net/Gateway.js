@@ -252,9 +252,10 @@ Ext.define('Cntysoft.Framework.Net.Gateway', {
                Cntysoft.GET_LANG_TEXT('ERROR.API_CALL_ERR')
             );
          } else{
-            //获取我们系统返回的相关数据
+            //获取            我们系统返回的相关数据
             //本系统所有API调用都是以JSON数据的方式进行返回
             data = Ext.decode(response.responseText);
+
          }
 //            //检查是否登录过期
 //            if(false == data.status){

@@ -50,19 +50,16 @@ Ext.define('Cntysoft.Global',{
     */
    showLoadScriptMask : function()
    {
-      if(this.loadMask){
-         this.loadMask.show();
-      }
+      Ext.getBody().mask(Cntysoft.GET_LANG_TEXT('MSG.LOAD_SCRIPT'));
    },
    /**
     * 隐藏脚本加载提示信息对象
     */
    hideLoadScriptMask : function()
    {
-      if(this.loadMask){
-         this.loadMask.hide();
-      }
+      Ext.getBody().unmask();
    },
+
    /**
     * 探测浏览器类型
     *
@@ -403,6 +400,8 @@ Ext.define('Cntysoft.Global',{
       showQuestionWindow : alias(g, 'showQuestionWindow'),
       showErrorQuestionWindow : alias(g, 'showErrorQuestionWindow'),
       showErrorWindow : alias(g, 'showErrorWindow'),
+      showLoadScriptMask : alias(g, 'showLoadScriptMask'),
+      hideLoadScriptMask : alias(g, 'hideLoadScriptMask'),
       getLangType : alias(g, 'getLangType')
    });
 });
