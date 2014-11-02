@@ -11,36 +11,6 @@
 Ext.define('Cntysoft.Kernel.Const',{
    inheritableStatics : {
       /**
-       * 核心环境变量名称，当前登录系统的用户权限的相关数据
-       *
-       * @readonly
-       * @property {String} ENV_ACL
-       */
-      ENV_ACL_KEY : 'ENV_ACL_KEY',
-      /**
-       * @readonly
-       * @property {String} ENV_ACL
-       */
-      ENV_USER_KEY : 'ENV_USER_INFO_KEY',
-      /**
-       * APP应用功能导航树
-       */
-      ENV_APP_TREE_KEY : 'ENV_APP_TREE_KEY',
-      /**
-       * php相关的设置
-       *
-       * @readonly
-       * @property {String} ENV_PHP_SETTING
-       */
-      ENV_PHP_SETTING : 'ENV_PHP_SETTING',
-      /**
-       * 系统平台相关的一些信息，比如版本信息相关的
-       *
-       * @readonly
-       * @property {String} ENV_OPEN_ENGINE
-       */
-      ENV_OPEN_ENGINE : 'ENV_OPEN_ENGINE',
-      /**
        * 第三方扩展的文件夹名称，比如 CkEditor源文件就存放这里
        *
        * @readonly
@@ -75,20 +45,6 @@ Ext.define('Cntysoft.Kernel.Const',{
        * @property {String} UPLOAD_DIR
        */
       UPLOAD_DIR : 'UploadFiles',
-       /**
-        * 系统上传文件目录
-        *
-        * @readonly
-        * @property {String} ATTACHMENT_DIR
-        */
-       ATTACHMENT_DIR : 'Attachment',
-       /**
-        * 系统上传头像目录
-        *
-        * @readonly
-        * @property {String} AVATAR_DIR
-        */
-       AVATAR_DIR : 'Avatar',
       /**
        * 系统资源文件夹名称，一般存放ExtJs框架的一些图片和Css资源
        *
