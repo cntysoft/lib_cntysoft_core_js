@@ -40,6 +40,12 @@ Ext.define('Cntysoft.Kernel.StdPath',{
       {
          return '/Resources/Platform';
       },
+
+      getSiteMgrResPath : function()
+      {
+         return '/Resources/SiteManager';
+      },
+
       /**
        * @return {String}
        */
