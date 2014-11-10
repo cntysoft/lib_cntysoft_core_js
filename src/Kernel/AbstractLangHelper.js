@@ -67,6 +67,13 @@ Ext.define('Cntysoft.Kernel.AbstractLangHelper', {
       return root;
    },
    /**
+    * @param {Cntysoft.Kernel.AbstractLangHelper} langHelper
+    */
+   merge : function (langHelper)
+   {
+      Ext.Object.merge(this.data, langHelper.data);
+   },
+   /**
     * 获取所有语言的数据
     *
     * @return {Array}
