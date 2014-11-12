@@ -78,7 +78,7 @@ Ext.define('Cntysoft.Lang.zh_CN', {
          SYS_AUTH_FAIL : '<span style = "color:red">身份验证信息失效</span>, 系统即将注销, 可能的原因是COOKIE过期',
          MULTI_LOGIN_FAIL : '提示，当前帐号被其他人登录，您被迫下线。<span style = "color:red">可能密码已经泄露，请修改密码。</span>',
          REBOOT_ASK : '尊敬的 <span style = "color:blue;font-weight:bold">{0}</span> , 您确定要注销登录吗？',
-         SAVE_REMOTE_IMAGE : '系统正在保存 : <span style = "color:blue"> {0} </span>',
+
          NO_REC : '暂无记录'
       },
       ERROR : {
