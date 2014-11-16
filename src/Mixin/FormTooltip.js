@@ -35,10 +35,12 @@ Ext.define('Cntysoft.Mixin.FormTooltip', {
                me.toolTip.setTarget(el);
                me.toolTip.update(target.toolTipText);
                me.toolTip.show();
+               target.focus();
             }
          },
          mouseleave : function(){
             me.toolTip.hide();
+            target.focus();
          },
          scope : this
       });
