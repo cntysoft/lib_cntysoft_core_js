@@ -36,7 +36,9 @@ Ext.define('Cntysoft.Lang.zh_CN', {
             PASSWORD : '密码',
             VERIFY_PWD : '确认密码',
             EMAIL : '电子邮件',
-            NICK_NAME : '昵称'
+            NICK_NAME : '昵称',
+            YES : '是',
+            NO : '否'
          },
          ENABLE : '启用',
          DISABLE : '禁用',

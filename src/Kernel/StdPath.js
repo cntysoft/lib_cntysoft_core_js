@@ -70,6 +70,16 @@ Ext.define('Cntysoft.Kernel.StdPath',{
       getVenderPath : function()
       {
          return '/JsLibrary';
+      },
+
+      /**
+       * 获取js代码路径
+       *
+       * @return {String}
+       */
+      getJsLibraryPath : function()
+      {
+         return '/JsLibrary'
       }
    }
 });
