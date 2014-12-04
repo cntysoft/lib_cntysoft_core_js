@@ -394,7 +394,6 @@ Ext.define('Cntysoft.Global',{
    Ext.apply(Cntysoft,{
       raiseError : alias(g, 'raiseError'),
       getDomainInfo : alias(g, 'getDomainInfo'),
-      processApiError : alias(g, 'processApiError'),
       showAlertWindow : alias(g, 'showAlertWindow'),
       showInfoMsgWindow : alias(g, 'showInfoMsgWindow'),
       showQuestionWindow : alias(g, 'showQuestionWindow'),
