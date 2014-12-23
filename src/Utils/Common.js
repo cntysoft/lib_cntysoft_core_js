@@ -142,7 +142,7 @@ Ext.define('Cntysoft.Utils.Common', {
          return res;
       },
       /**
-       * 重新加载指定的gridu页面
+       * 重新加载指定的grid页面
        *
        * @param {Ext.data.Store} store
        * @param {Object} params 重新加载时候的参数
