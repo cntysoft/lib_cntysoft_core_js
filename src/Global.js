@@ -272,7 +272,7 @@ Ext.define('Cntysoft.Global',{
    {
       var config = this.processWinArguments.apply(this, arguments);
       Ext.apply(config, {
-         buttons : Ext.Msg.YESNO,
+         buttons : Ext.Msg.OK,
          icon : Ext.Msg.INFO
       });
       Ext.Msg.show(config);
