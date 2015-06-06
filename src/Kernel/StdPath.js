@@ -31,20 +31,6 @@ Ext.define('Cntysoft.Kernel.StdPath',{
          return this.getAppPath(module, name)+'/Data';
       },
 
-      /**
-       * 获取平台的资源路径
-       *
-       * @return {String}
-       */
-      getPlatformResPath : function()
-      {
-         return '/Resources/Platform';
-      },
-
-      getSiteMgrResPath : function()
-      {
-         return '/Resources/SiteManager';
-      },
 
       /**
        * @return {String}
