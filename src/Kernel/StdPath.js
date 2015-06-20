@@ -32,26 +32,11 @@ Ext.define('Cntysoft.Kernel.StdPath',{
       },
 
       /**
-       * 获取平台的资源路径
-       *
        * @return {String}
        */
-      getPlatformResPath : function()
+      getStaticsPath : function()
       {
-         return '/Resources/Platform';
-      },
-
-      getSiteMgrResPath : function()
-      {
-         return '/Resources/SiteManager';
-      },
-
-      /**
-       * @return {String}
-       */
-      getResourcePath : function()
-      {
-         return '/Resources';
+         return '/Statics';
       },
       /**
        * 获取系统数据路径
