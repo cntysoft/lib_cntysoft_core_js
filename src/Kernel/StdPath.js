@@ -30,14 +30,13 @@ Ext.define('Cntysoft.Kernel.StdPath',{
       {
          return this.getAppPath(module, name)+'/Data';
       },
-
-
+      
       /**
        * @return {String}
        */
-      getResourcePath : function()
+      getStaticsPath : function()
       {
-         return '/Resources';
+         return '/Statics';
       },
       /**
        * 获取系统数据路径
