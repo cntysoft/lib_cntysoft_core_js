@@ -257,25 +257,25 @@ Ext.define('Cntysoft.Framework.Net.Gateway', {
             data = Ext.decode(response.responseText);
 
          }
-//            //检查是否登录过期
-//            if(false == data.status){
-//                if(Cntysoft.WebOs.isReady()){
-//                    if(data.errorCode == 71){
-//                        Cntysoft.showErrorWindow(Cntysoft.GET_LANG_TEXT('MSG.MULTI_LOGIN_FAIL'), function(){
-//                            Cntysoft.WebOs.logout(true);
-//                        }, this);
-//                        //停止投递
-//                        return;
-//                    }else if(data.errorCode == 70 || data.authFail){
-//                         Cntysoft.showErrorWindow(Cntysoft.GET_LANG_TEXT('MSG.SYS_AUTH_FAIL'), function(){
-//                            Cntysoft.WebOs.logout(true);
-//                        }, this);
-//                        //停止投递
-//                        return;
-//                    }
-//                    
-//                }
-//            }
+            //检查是否登录过期
+            if(false == data.status){
+                if(WebOs.isReady()){
+                    if(data.errorCode == 59){
+                        Cntysoft.showErrorWindow(Cntysoft.GET_LANG_TEXT('MSG.MULTI_LOGIN_FAIL'), function(){
+                            WebOs.logout(true);
+                        }, this);
+                        //停止投递
+                        return;
+                    }else if(data.errorCode == 60 || data.authFail){
+                         Cntysoft.showErrorWindow(Cntysoft.GET_LANG_TEXT('MSG.SYS_AUTH_FAIL'), function(){
+                            WebOs.logout(true);
+                        }, this);
+                        //停止投递
+                        return;
+                    }
+
+                }
+            }
          //@todo 是否处理逻辑错误
          //data.status == false的情况
          if(!options.async){
