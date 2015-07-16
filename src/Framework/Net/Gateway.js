@@ -262,13 +262,13 @@ Ext.define('Cntysoft.Framework.Net.Gateway', {
                 if(WebOs.isReady()){
                     if(data.errorCode == 59){
                         Cntysoft.showErrorWindow(Cntysoft.GET_LANG_TEXT('MSG.MULTI_LOGIN_FAIL'), function(){
-                            WebOs.logout(true);
+                            WebOs.logout(null, true);
                         }, this);
                         //停止投递
                         return;
                     }else if(data.errorCode == 60 || data.authFail){
                          Cntysoft.showErrorWindow(Cntysoft.GET_LANG_TEXT('MSG.SYS_AUTH_FAIL'), function(){
-                            WebOs.logout(true);
+                            WebOs.logout(null, true);
                         }, this);
                         //停止投递
                         return;
