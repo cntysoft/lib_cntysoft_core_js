@@ -24,7 +24,7 @@ Ext.define('Cntysoft.Kernel.LangManager',{
     *
     * @param {String} key
     * @return {Cntysoft.Kernel.AbstractLangHelper}
-    * @throw {Ext.Error}
+    * @throws {Ext.Error}
     */
    getLang : function(key)
    {

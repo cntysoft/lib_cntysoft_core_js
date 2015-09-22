@@ -16,9 +16,6 @@ Ext.define('Cntysoft.Kernel.SysEnv', {
     */
    constructor : function()
    {
-      /**
-       * @todo
-       */
       this.callParent();
    },
    /**

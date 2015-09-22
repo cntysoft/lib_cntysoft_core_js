@@ -97,7 +97,7 @@ Ext.define('Cntysoft.Framework.Net.Request', {
     *
     * @param {String} info
     * @param {String} type
-    * @throw {Exception}
+    * @throws {Exception}
     */
    setInvokeInfo : function(info, type)
    {
@@ -193,7 +193,7 @@ Ext.define('Cntysoft.Framework.Net.Request', {
    {
       var GATEWAY = Cntysoft.Framework.Net.Gateway;
       /**
-       * @TODO 可能出现问题 class not exist
+       * 可能出现问题 class not exist
        */
       return me.type == GATEWAY.CALL_TYPE_APP;
    },
