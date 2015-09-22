@@ -5,6 +5,9 @@
  * @copyright  Copyright (c) 2010-2011 Cntysoft Technologies China Inc. <http://www.cntysoft.com>
  * @license    http://www.cntysoft.com/license/new-bsd     New BSD License
  */
+/**
+ * 底层库标准路径静态类
+ */
 Ext.define('Cntysoft.Kernel.StdPath',{
    inheritableStatics : {
       /**

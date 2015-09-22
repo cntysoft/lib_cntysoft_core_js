@@ -1,11 +1,10 @@
-/*
- * 系统一些通用的函数
- * 
- * @class Cntysoft.Kernel.Utils
- * @singleton
+/**
  * @author     SOFTBOY <cntysoft@163.com>
  * copyright  Copyright (c) 2010-2011 Cntysoft Technologies China Inc. <http://www.cntysoft.com>
  * license    http://www.cntysoft.com/license/new-bsd     New BSD License
+ */
+/**
+ * 系统一些通用的函数
  */
 Ext.define('Cntysoft.Utils.Common', {
    requires : [

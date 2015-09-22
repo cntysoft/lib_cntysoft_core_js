@@ -36,7 +36,7 @@ Ext.define('Cntysoft.Kernel.Utils',{
     *
     * @param {String} cls
     * @param {String} method
-    * @throw {Exception}
+    * @throws {Exception}
     */
    methodNotSupported : function(cls, method)
    {
