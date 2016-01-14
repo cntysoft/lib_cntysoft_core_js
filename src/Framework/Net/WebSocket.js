@@ -9,31 +9,33 @@
  * WebSocket的简单封装
  */
 Ext.define('Cntysoft.Framework.Net.WebSocket', {
-   mixins : {
-      observable : 'Ext.mixin.Observable'
+   mixins: {
+      observable: 'Ext.mixin.Observable'
    },
-   statics : {
-      CONNECTING:0,//	连接还没开启。
-      OPEN:1,//连接已开启并准备好进行通信。
-      CLOSING:2,//连接正在关闭的过程中。
-      CLOSED:3//连接已经关闭，或者连接无法建立。
+   statics: {
+      CONNECTING: 0, //	连接还没开启。
+      OPEN: 1, //连接已开启并准备好进行通信。
+      CLOSING: 2, //连接正在关闭的过程中。
+      CLOSED: 3, //连接已经关闭，或者连接无法建立,
+      ERROR_CODE: {
+      }
    },
    /**
     * @var {WebSocket} websocket
     */
-   websocket : null,
+   websocket: null,
    /**
     * @var {String} hostUrl websocket服务器地址
     */
-   hostUrl : '',
-   constructor : function(config)
+   hostUrl: '',
+   constructor: function(config)
    {
       Ext.apply(this, config);
       this.mixins.observable.constructor.call(this, config);
-      if(this.hostUrl == ''){
+      if(this.hostUrl==''){
          Cntysoft.raiseError(Ext.getClassName(this), 'constructor', "hostUrl can not empty");
       }
-      if (typeof MozWebSocket == 'function'){
+      if(typeof MozWebSocket=='function'){
          WebSocket = MozWebSocket;
       }
       this.websocket = new WebSocket(this.hostUrl);
@@ -42,72 +44,62 @@ Ext.define('Cntysoft.Framework.Net.WebSocket', {
       this.websocket.onmessage = Ext.bind(this.messageHandler, this);
       this.websocket.onerror = Ext.bind(this.errorHandler, this);
    },
-   
-   setBinaryType : function(type)
+   setBinaryType: function(type)
    {
-      if(type == "blob" || type == "arraybuffer"){
+      if(type=="blob"||type=="arraybuffer"){
          this.websocket.binaryType = type;
       }
       return this;
    },
-   
-   getBinaryType : function()
+   getBinaryType: function()
    {
       return this.websocket.binaryType;
    },
-   
-   getBufferedAmount : function()
+   getBufferedAmount: function()
    {
       return this.websocket.bufferedAmount;
    },
-   
-   getReadyState : function()
+   getReadyState: function()
    {
       return this.websocket.readyState;
    },
-   
-   send : function(data)
+   send: function(data)
    {
-      if(this.getReadyState() == this.self.OPEN){
+      if(this.getReadyState()==this.self.OPEN){
          this.websocket.send(data);
       }
       return this;
    },
-   
-   close : function(code, reason)
+   close: function(code, reason)
    {
       this.websocket.close(code, reason);
       return this;
    },
-   
-   openedHandler : function(event)
+   openedHandler: function(event)
    {
       if(this.hasListeners.opened){
          this.fireEvent("opened", event);
       }
    },
-   
-   closeHandler : function(event)
+   closeHandler: function(event)
    {
       if(this.hasListeners.close){
          this.fireEvent("close", event);
       }
    },
-   
-   errorHandler : function(event)
+   errorHandler: function(event)
    {
       if(this.hasListeners.error){
          this.fireEvent("error", event);
       }
    },
-   
-   messageHandler : function(event)
+   messageHandler: function(event)
    {
       if(this.hasListeners.error){
          this.fireEvent("message", event);
       }
    },
-   destroy : function()
+   destroy: function()
    {
       this.websocket.close();
       delete this.websocket;
