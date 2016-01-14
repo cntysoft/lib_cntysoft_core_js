@@ -7,7 +7,7 @@
  */
 Ext.define("Cntysoft.Framework.Rpc.Request", {
    requires : [
-      "Ext.util.MixedCollection"
+      "Ext.util.HashMap"
    ],
    /**
     * @var {String} m_name
@@ -18,7 +18,7 @@ Ext.define("Cntysoft.Framework.Rpc.Request", {
     */
    m_method: "",
    /**
-    * @var {Object} m_args 传递的参数
+    * @var {Ext.util.HashMap} m_args 传递的参数
     */
    m_args: null,
    /**
@@ -38,7 +38,7 @@ Ext.define("Cntysoft.Framework.Rpc.Request", {
    {
       this.m_name = name;
       this.m_method = method;
-      this.m_args = new Ext.util.MixedCollection();
+      this.m_args = new Ext.util.HashMap();
       if(Ext.isObject(args)){
          Cntysoft.raiseError(Ext.getClassName(this), "constructor", "args must be object type");
       }
@@ -107,14 +107,14 @@ Ext.define("Cntysoft.Framework.Rpc.Request", {
    toJson : function()
    {
       var request = {
-         name : this.m_name,
+         namse : this.m_name,
          method : this.m_method,
          serial : this.m_serial,
          socketNum : this.m_socketNum,
          extraData : this.m_extraData
       };
       var args = {};
-      this.m_args.eachKey(function(key, item){
+      this.m_args.each(function(key, item){
          args[key] = item;
       });
       request.args = args;

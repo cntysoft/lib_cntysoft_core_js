@@ -11,11 +11,13 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    },
    requires : [
       "Cntysoft.Framework.Net.WebSocket",
-      "Ext.util.MixedCollection"
+      "Ext.util.MixedCollection",
+      "Cntysoft.Framework.Rpc.Response"
    ],
    
    statics : {
-      REQUEST_SEED : 1
+      REQUEST_SEED : 1,
+      SUPER_SERIAL_NUM : 0
    },
    /**
     * @var {Cntysoft.Framework.Net.WebSocket} m_socket
@@ -67,6 +69,10 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
                      this.fireEvent("serveroffline", this, event);
                   }
                },
+               message : function(event)
+               {
+                  this.processResponse(Ext.util.Base64.decode(event.data));
+               },
                scope : this
             }
          });
@@ -107,11 +113,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
       for(var i = 0; i < length; i++){
          binaryData[i] = package.charCodeAt(i);
       }
-//      package += "\n\n\t";
       try{
-         this.m_socket.send(binaryData);
-         this.m_socket.send(binaryData);
-         this.m_socket.send(binaryData);
          this.m_socket.send(binaryData);
          return true;
       }catch(ex){
@@ -125,9 +127,31 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
       this.m_errorString = "";
    },
    
-   processResponse : function()
+   processResponse : function(responseJson)
    {
-      
+      responseJson = Ext.decode(responseJson);
+      var response = new Cntysoft.Framework.Rpc.Response(responseJson.signature, responseJson.status);
+      if(response.getStatus()){
+         if(!Ext.isEmpty(responseJson.data)){
+            var data = responseJson.data;
+            for(var key in data){
+               response.setDataItem(key, data[key]);
+            }
+         }
+         if(!Ext.isEmpty(responseJson.extraData)){
+            response.setExtraData(responseJson.extraData);
+         }
+      }else{
+         response.setErrorCode(responseJson.errorCode);
+         response.setErrorString(responseJson.errorString);
+      }
+      response.setIsFinal(responseJson.isFinal);
+      response.setSerial(responseJson.serial);
+      if(this.self.SUPER_SERIAL_NUM == response.getSerial() && !response.getStatus()){
+         //超级错误
+         this.disconnectFromServer();
+         Cntysoft.raiseError(Ext.getClassName(this), "processResponse", response.getErrorString());
+      }
    },
    
    getErrorCode : function()

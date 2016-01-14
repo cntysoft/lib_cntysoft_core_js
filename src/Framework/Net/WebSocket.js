@@ -72,6 +72,7 @@ Ext.define('Cntysoft.Framework.Net.WebSocket', {
    },
    close: function(code, reason)
    {
+      code = code ? code : 1000;
       this.websocket.close(code, reason);
       return this;
    },
@@ -95,7 +96,7 @@ Ext.define('Cntysoft.Framework.Net.WebSocket', {
    },
    messageHandler: function(event)
    {
-      if(this.hasListeners.error){
+      if(this.hasListeners.message){
          this.fireEvent("message", event);
       }
    },
