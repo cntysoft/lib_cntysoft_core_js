@@ -107,7 +107,7 @@ Ext.define("Cntysoft.Framework.Rpc.Request", {
    toJson : function()
    {
       var request = {
-         namse : this.m_name,
+         name : this.m_name,
          method : this.m_method,
          serial : this.m_serial,
          socketNum : this.m_socketNum,

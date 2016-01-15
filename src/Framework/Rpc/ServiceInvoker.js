@@ -11,7 +11,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    },
    requires : [
       "Cntysoft.Framework.Net.WebSocket",
-      "Ext.util.MixedCollection",
+      "Ext.util.HashMap",
       "Cntysoft.Framework.Rpc.Response"
    ],
    
@@ -37,7 +37,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    m_connected : false,
    
    /**
-    * @var {Ext.util.MixedCollection} m_callbacks
+    * @var {Ext.util.HashMap} m_callbacks
     */
    m_callbacks : null,
    constructor : function(config)
@@ -47,7 +47,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
       if(Ext.isEmpty(this.serviceHost)){
          Cntysoft.raiseError(Ext.getClassName(this), 'constructor', "serviceHost can not empty");
       }
-      this.m_callbacks = new Ext.util.MixedCollection();
+      this.m_callbacks = new Ext.util.HashMap();
    },
    
    connectToServer : function()
@@ -64,6 +64,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
                },
                close : function(event)
                {
+                  this.resetStatus();
                   this.m_connected = false;
                   if(this.hasListeners.serveroffline){
                      this.fireEvent("serveroffline", this, event);
@@ -71,7 +72,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
                },
                message : function(event)
                {
-                  this.processResponse(Ext.util.Base64.decode(event.data));
+                  this.unboxMessage(event.data);
                },
                scope : this
             }
@@ -97,7 +98,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
          this.m_errorString = "websocket not connected"
          return false;
       }
-      callback = Ext.isFunction(callback);
+      callback = Ext.isFunction(callback) ? callback : Ext.emptyFn;
       scope = scope ? scope : this;
       var serial = this.generateRequestSerial();
       request.setSerial(serial);
@@ -124,10 +125,11 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    
    resetStatus : function()
    {
+      this.errorCode = -1;
       this.m_errorString = "";
    },
    
-   processResponse : function(responseJson)
+   unboxMessage : function(responseJson)
    {
       responseJson = Ext.decode(responseJson);
       var response = new Cntysoft.Framework.Rpc.Response(responseJson.signature, responseJson.status);
@@ -145,12 +147,25 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
          response.setErrorCode(responseJson.errorCode);
          response.setErrorString(responseJson.errorString);
       }
-      response.setIsFinal(responseJson.isFinal);
+      response.setIsFinal(responseJson.final);
       response.setSerial(responseJson.serial);
       if(this.self.SUPER_SERIAL_NUM == response.getSerial() && !response.getStatus()){
          //超级错误
          this.disconnectFromServer();
          Cntysoft.raiseError(Ext.getClassName(this), "processResponse", response.getErrorString());
+      }
+      this.processResponse(response);
+   },
+   
+   processResponse : function(response)
+   {
+      var slotIndex = response.getSerial();
+      if(this.m_callbacks.containsKey(slotIndex)){
+         var slot = this.m_callbacks.get(slotIndex);
+         slot[0].call(slot[1], response);
+         if(response.getIsFinal()){
+            this.m_callbacks.removeAtKey(slotIndex);
+         }
       }
    },
    
@@ -172,5 +187,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    destroy : function()
    {
       this.disconnectFromServer();
+      Ext.destroy(this.m_callbacks);
+      delete this.m_callbacks;
    }
 });
