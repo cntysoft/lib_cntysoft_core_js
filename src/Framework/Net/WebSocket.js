@@ -38,7 +38,9 @@ Ext.define('Cntysoft.Framework.Net.WebSocket', {
       if(typeof MozWebSocket=='function'){
          WebSocket = MozWebSocket;
       }
-      this.websocket = new WebSocket(this.hostUrl);
+      try{
+         this.websocket = new WebSocket(this.hostUrl);
+      }catch(ex){}
       this.websocket.onopen = Ext.bind(this.openedHandler, this);
       this.websocket.onclose = Ext.bind(this.closeHandler, this);
       this.websocket.onmessage = Ext.bind(this.messageHandler, this);

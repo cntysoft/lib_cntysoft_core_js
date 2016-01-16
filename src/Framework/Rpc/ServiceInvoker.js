@@ -20,26 +20,26 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
       SUPER_SERIAL_NUM : 0
    },
    /**
-    * @var {Cntysoft.Framework.Net.WebSocket} m_socket
+    * @var {Cntysoft.Framework.Net.WebSocket} socket
     */
-   m_socket : null,
+   socket : null,
    /**
     * @var {String} serviceHost
     */
    serviceHost : "",
    /**
-    * @var {String} m_errorString
+    * @var {String} errorString
     */
-   m_errorString : "",
+   errorString : "",
    /**
-    * @var {Boolean} m_connected
+    * @var {Boolean} connected
     */
-   m_connected : false,
+   connected : false,
    
    /**
-    * @var {Ext.util.HashMap} m_callbacks
+    * @var {Ext.util.HashMap} callbacks
     */
-   m_callbacks : null,
+   callbacks : null,
    constructor : function(config)
    {
       Ext.apply(this, config);
@@ -47,17 +47,17 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
       if(Ext.isEmpty(this.serviceHost)){
          Cntysoft.raiseError(Ext.getClassName(this), 'constructor', "serviceHost can not empty");
       }
-      this.m_callbacks = new Ext.util.HashMap();
+      this.callbacks = new Ext.util.HashMap();
    },
    
    connectToServer : function()
    {
       try{
-         this.m_socket = new Cntysoft.Framework.Net.WebSocket({
+         this.socket = new Cntysoft.Framework.Net.WebSocket({
             hostUrl : this.serviceHost,
             listeners : {
                opened : function(event){
-                  this.m_connected = true;
+                  this.connected = true;
                   if(this.hasListeners.connected){
                      this.fireEvent("connected", this, event);
                   }
@@ -65,7 +65,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
                close : function(event)
                {
                   this.resetStatus();
-                  this.m_connected = false;
+                  this.connected = false;
                   if(this.hasListeners.serveroffline){
                      this.fireEvent("serveroffline", this, event);
                   }
@@ -79,30 +79,30 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
          });
          return true;
       }catch(ex){
-         this.m_errorString = ex;
+         this.errorString = ex;
          return false;
       }
    },
    
    disconnectFromServer : function()
    {
-      this.m_socket.close();
-      Ext.destroy(this.m_socket);
-      this.m_socket = null;
-      this.m_connected = false;
+      this.socket.close();
+      Ext.destroy(this.socket);
+      this.socket = null;
+      this.connected = false;
    },
    
    request : function(request, callback, scope)
    {
-      if(this.m_connected == false){
-         this.m_errorString = "websocket not connected"
+      if(this.connected == false){
+         this.errorString = "websocket not connected"
          return false;
       }
       callback = Ext.isFunction(callback) ? callback : Ext.emptyFn;
       scope = scope ? scope : this;
       var serial = this.generateRequestSerial();
       request.setSerial(serial);
-      this.m_callbacks.add(serial, [callback, scope]);
+      this.callbacks.add(serial, [callback, scope]);
       return this.writeRequestToSocket(request);
    },
    
@@ -115,10 +115,10 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
          binaryData[i] = package.charCodeAt(i);
       }
       try{
-         this.m_socket.send(binaryData);
+         this.socket.send(binaryData);
          return true;
       }catch(ex){
-         this.m_errorString = ex;
+         this.errorString = ex;
          return false;
       }
    },
@@ -126,7 +126,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    resetStatus : function()
    {
       this.errorCode = -1;
-      this.m_errorString = "";
+      this.errorString = "";
    },
    
    unboxMessage : function(responseJson)
@@ -160,23 +160,23 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    processResponse : function(response)
    {
       var slotIndex = response.getSerial();
-      if(this.m_callbacks.containsKey(slotIndex)){
-         var slot = this.m_callbacks.get(slotIndex);
+      if(this.callbacks.containsKey(slotIndex)){
+         var slot = this.callbacks.get(slotIndex);
          slot[0].call(slot[1], response);
          if(response.getIsFinal()){
-            this.m_callbacks.removeAtKey(slotIndex);
+            this.callbacks.removeAtKey(slotIndex);
          }
       }
    },
    
    getErrorCode : function()
    {
-      return this.m_errorCode;
+      return this.errorCode;
    },
    
    getErrorString : function()
    {
-      return this.m_errorString;
+      return this.errorString;
    },
    
    generateRequestSerial : function()
@@ -187,7 +187,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
    destroy : function()
    {
       this.disconnectFromServer();
-      Ext.destroy(this.m_callbacks);
-      delete this.m_callbacks;
+      Ext.destroy(this.callbacks);
+      delete this.callbacks;
    }
 });

@@ -10,142 +10,142 @@ Ext.define("Cntysoft.Framework.Rpc.Response",{
       "Ext.util.HashMap"
    ],
    /**
-    * @var {String} m_signature
+    * @var {String} signature
     */
-   m_signature : "",
+   signature : "",
    /**
-    * @var {Boolean} m_status
+    * @var {Boolean} status
     */
-   m_status : true,
+   status : true,
    /**
-    * @var {Integer} m_serial
+    * @var {Integer} serial
     */
-   m_serial : -1,
+   serial : -1,
    /**
-    * @var {Boolean} m_isFinal
+    * @var {Boolean} isFinal
     */
-   m_isFinal : true,
+   isFinal : true,
    /**
-    * @var {Integer} m_errorCode
+    * @var {Integer} errorCode
     */
-   m_errorCode : -1,
+   errorCode : -1,
    /**
-    * @var {String} m_errorString
+    * @var {String} errorString
     */
-   m_errorString : "",
+   errorString : "",
    /**
-    * @var {Ext.util.HashMap} m_data
+    * @var {Ext.util.HashMap} data
     */
-   m_data : null,
+   data : null,
    /**
-    * @var {String} m_extraData
+    * @var {String} extraData
     */
-   m_extraData : "",
+   extraData : "",
    
    constructor : function(signature, status)
    {
-      this.m_signature = signature;
-      this.m_status = status;
-      this.m_data = new Ext.util.HashMap();
+      this.signature = signature;
+      this.status = status;
+      this.data = new Ext.util.HashMap();
    },
    
    setSignature : function(signature)
    {
-      this.m_signature = signature;
+      this.signature = signature;
       return this;
    },
    
    getSignature : function()
    {
-      return this.m_signatire;
+      return this.signatire;
    },
    
    setStatus : function(status)
    {
-      this.m_status = status;
+      this.status = status;
       return this;
    },
    
    getStatus : function()
    {
-      return this.m_status;
+      return this.status;
    },
    
    setSerial : function(serial)
    {
-      this.m_serial = serial;
+      this.serial = serial;
       return this;
    },
    
    getSerial : function()
    {
-      return this.m_serial;
+      return this.serial;
    },
    
    setIsFinal : function(flag)
    {
-      this.m_isFinal = flag;
+      this.isFinal = flag;
       return this;
    },
    
    getIsFinal : function()
    {
-      return this.m_isFinal;
+      return this.isFinal;
    },
    
    setErrorCode : function(code)
    {
-      this.m_errorCode = code;
-      return this.m_errorCode;
+      this.errorCode = code;
+      return this.errorCode;
    },
    
    getErrorCode : function()
    {
-      return this.m_errorCode;
+      return this.errorCode;
    },
    
    setErrorString : function(errorString)
    {
-      this.m_errorString = errorString;
+      this.errorString = errorString;
       return this;
    },
    
    getErrorString : function()
    {
-      return this.m_errorString;
+      return this.errorString;
    },
    
    setDataItem : function(key, value)
    {
-      this.m_data.add(key, value);
+      this.data.add(key, value);
       return this;
    },
    
    getDataItem : function(key)
    {
-      return this.m_data.get(key);
+      return this.data.get(key);
    },
    
    getData : function()
    {
-      return this.m_data;
+      return this.data;
    },
    
    setExtraData : function(data)
    {
-      this.m_extraData = data;
+      this.extraData = data;
       return this;
    },
    
    getExtraData : function()
    {
-      return this.m_extraData;
+      return this.extraData;
    },
    
    destroy : function()
    {
-      this.m_data.clear();
-      Ext.destroy(this.m_data);
-      delete this.m_data;
+      this.data.clear();
+      Ext.destroy(this.data);
+      delete this.data;
    }
 });
