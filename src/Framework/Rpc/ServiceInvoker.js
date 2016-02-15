@@ -5,42 +5,40 @@
  * @copyright  Copyright (c) 2010-2011 Cntysoft Technologies China Inc. <http://www.cntysoft.com>
  * @license    http://www.cntysoft.com/license/new-bsd     New BSD License
  */
-Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
-   mixins : {
-      observable : "Ext.mixin.Observable"
+Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
+   mixins: {
+      observable: "Ext.mixin.Observable"
    },
-   requires : [
+   requires: [
       "Cntysoft.Framework.Net.WebSocket",
       "Ext.util.HashMap",
       "Cntysoft.Framework.Rpc.Response"
    ],
-   
-   statics : {
-      REQUEST_SEED : 1,
-      SUPER_SERIAL_NUM : 0
+   statics: {
+      REQUEST_SEED: 1,
+      SUPER_SERIAL_NUM: 0
    },
    /**
     * @var {Cntysoft.Framework.Net.WebSocket} socket
     */
-   socket : null,
+   socket: null,
    /**
     * @var {String} serviceHost
     */
-   serviceHost : "",
+   serviceHost: "",
    /**
     * @var {String} errorString
     */
-   errorString : "",
+   errorString: "",
    /**
     * @var {Boolean} connected
     */
-   connected : false,
-   
+   connected: false,
    /**
     * @var {Ext.util.HashMap} callbacks
     */
-   callbacks : null,
-   constructor : function(config)
+   callbacks: null,
+   constructor: function(config)
    {
       Ext.apply(this, config);
       this.mixins.observable.constructor.call(this, config);
@@ -49,20 +47,19 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
       }
       this.callbacks = new Ext.util.HashMap();
    },
-   
-   connectToServer : function()
+   connectToServer: function()
    {
       try{
          this.socket = new Cntysoft.Framework.Net.WebSocket({
-            hostUrl : this.serviceHost,
-            listeners : {
-               opened : function(event){
+            hostUrl: this.serviceHost,
+            listeners: {
+               opened: function(event){
                   this.connected = true;
                   if(this.hasListeners.connected){
                      this.fireEvent("connected", this, event);
                   }
                },
-               close : function(event)
+               close: function(event)
                {
                   this.resetStatus();
                   this.connected = false;
@@ -70,11 +67,19 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
                      this.fireEvent("serveroffline", this, event);
                   }
                },
-               message : function(event)
+               error: function(event)
+               {
+                  this.resetStatus();
+                  this.connected = false;
+                  if(this.hasListeners.connecterror){
+                     this.fireEvent("connecterror", this, event);
+                  }
+               },
+               message: function(event)
                {
                   this.unboxMessage(event.data);
                },
-               scope : this
+               scope: this
             }
          });
          return true;
@@ -83,35 +88,32 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
          return false;
       }
    },
-   
-   disconnectFromServer : function()
+   disconnectFromServer: function()
    {
       this.socket.close();
       Ext.destroy(this.socket);
       this.socket = null;
       this.connected = false;
    },
-   
-   request : function(request, callback, scope)
+   request: function(request, callback, scope)
    {
-      if(this.connected == false){
+      if(this.connected==false){
          this.errorString = "websocket not connected"
          return false;
       }
-      callback = Ext.isFunction(callback) ? callback : Ext.emptyFn;
-      scope = scope ? scope : this;
+      callback = Ext.isFunction(callback)?callback:Ext.emptyFn;
+      scope = scope?scope:this;
       var serial = this.generateRequestSerial();
       request.setSerial(serial);
       this.callbacks.add(serial, [callback, scope]);
       return this.writeRequestToSocket(request);
    },
-   
-   writeRequestToSocket : function(request)
+   writeRequestToSocket: function(request)
    {
       var package = Ext.util.Base64.encode(request.toJson());
       var length = package.length;
       var binaryData = new Uint8Array(length);
-      for(var i = 0; i < length; i++){
+      for(var i = 0; i<length; i++){
          binaryData[i] = package.charCodeAt(i);
       }
       try{
@@ -122,14 +124,12 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
          return false;
       }
    },
-   
-   resetStatus : function()
+   resetStatus: function()
    {
       this.errorCode = -1;
       this.errorString = "";
    },
-   
-   unboxMessage : function(responseJson)
+   unboxMessage: function(responseJson)
    {
       responseJson = Ext.decode(responseJson);
       var response = new Cntysoft.Framework.Rpc.Response(responseJson.signature, responseJson.status);
@@ -149,15 +149,14 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
       }
       response.setIsFinal(responseJson.final);
       response.setSerial(responseJson.serial);
-      if(this.self.SUPER_SERIAL_NUM == response.getSerial() && !response.getStatus()){
+      if(this.self.SUPER_SERIAL_NUM==response.getSerial()&&!response.getStatus()){
          //超级错误
          this.disconnectFromServer();
          Cntysoft.raiseError(Ext.getClassName(this), "processResponse", response.getErrorString());
       }
       this.processResponse(response);
    },
-   
-   processResponse : function(response)
+   processResponse: function(response)
    {
       var slotIndex = response.getSerial();
       if(this.callbacks.containsKey(slotIndex)){
@@ -168,23 +167,19 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker",{
          }
       }
    },
-   
-   getErrorCode : function()
+   getErrorCode: function()
    {
       return this.errorCode;
    },
-   
-   getErrorString : function()
+   getErrorString: function()
    {
       return this.errorString;
    },
-   
-   generateRequestSerial : function()
+   generateRequestSerial: function()
    {
       return this.self.REQUEST_SEED++;
    },
-   
-   destroy : function()
+   destroy: function()
    {
       this.disconnectFromServer();
       Ext.destroy(this.callbacks);
