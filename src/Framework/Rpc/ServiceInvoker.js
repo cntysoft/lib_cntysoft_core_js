@@ -97,10 +97,17 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
    },
    request: function(request, callback, scope)
    {
-      if(this.connected==false){
-         this.errorString = "websocket not connected"
-         return false;
+      if(this.connected == false){
+         this.addListener({
+            connected : function(){
+               this.request(request, callback, scope);
+            },
+            scope : this
+         })
+         this.connectToServer();
+         return;
       }
+      
       callback = Ext.isFunction(callback)?callback:Ext.emptyFn;
       scope = scope?scope:this;
       var serial = this.generateRequestSerial();
@@ -141,7 +148,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
             }
          }
          if(!Ext.isEmpty(responseJson.extraData)){
-            response.setExtraData(responseJson.extraData);
+            response.setExtraData(Ext.JSON.decode(Ext.util.Base64.decode(responseJson.extraData)));
          }
       }else{
          response.setErrorCode(responseJson.errorCode);
