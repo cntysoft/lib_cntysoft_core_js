@@ -90,24 +90,26 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
    },
    disconnectFromServer: function()
    {
-      this.socket.close();
-      Ext.destroy(this.socket);
+      if(this.socket){
+         this.socket.close();
+         Ext.destroy(this.socket);
+      }
       this.socket = null;
       this.connected = false;
    },
    request: function(request, callback, scope)
    {
-      if(this.connected == false){
+      if(this.connected==false){
          this.addListener({
-            connected : function(){
+            connected: function(){
                this.request(request, callback, scope);
             },
-            scope : this
+            scope: this
          })
          this.connectToServer();
          return;
       }
-      
+
       callback = Ext.isFunction(callback)?callback:Ext.emptyFn;
       scope = scope?scope:this;
       var serial = this.generateRequestSerial();

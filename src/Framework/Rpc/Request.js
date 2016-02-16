@@ -39,7 +39,7 @@ Ext.define("Cntysoft.Framework.Rpc.Request", {
       this.name = name;
       this.method = method;
       this.args = new Ext.util.HashMap();
-      if(Ext.isObject(args)){
+      if(!Ext.isObject(args)){
          Cntysoft.raiseError(Ext.getClassName(this), "constructor", "args must be object type");
       }
       if(!Ext.Object.isEmpty(args)){
