@@ -119,11 +119,11 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
    },
    writeRequestToSocket: function(request)
    {
-      var package = Ext.util.Base64.encode(request.toJson());
-      var length = package.length;
+      var pkg = Ext.util.Base64.encode(request.toJson());
+      var length = pkg.length;
       var binaryData = new Uint8Array(length);
       for(var i = 0; i<length; i++){
-         binaryData[i] = package.charCodeAt(i);
+         binaryData[i] = pkg.charCodeAt(i);
       }
       try{
          this.socket.send(binaryData);
@@ -156,8 +156,8 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
          response.setErrorCode(responseJson.errorCode);
          response.setErrorString(responseJson.errorString);
       }
-      response.setIsFinal(responseJson.final);
-      response.setSerial(responseJson.serial);
+      response.setIsFinal(responseJson["final"]);
+      response.setSerial(responseJson["serial"]);
       if(this.self.SUPER_SERIAL_NUM==response.getSerial()&&!response.getStatus()){
          //超级错误
          this.disconnectFromServer();
