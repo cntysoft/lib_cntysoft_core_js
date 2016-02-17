@@ -97,6 +97,13 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
       this.socket = null;
       this.connected = false;
    },
+   
+   callService : function(name, method, args, callback, scope)
+   {
+      var request = new Cntysoft.Framework.Rpc.Request(name, method, args);
+      this.request(request, callback, scope);
+   },
+   
    request: function(request, callback, scope)
    {
       if(this.connected==false){
