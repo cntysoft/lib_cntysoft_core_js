@@ -119,11 +119,15 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
    },
    writeRequestToSocket: function(request)
    {
-      var pkg = Ext.util.Base64.encode(request.toJson());
-      var length = pkg.length;
+      var data = Ext.util.Base64.encode(request.toJson());
+      var extraData = request.getExtraData();
+      if(extraData.length > 0){
+         data = data + "\n\n\n" + extraData;
+      }
+      var length = data.length;
       var binaryData = new Uint8Array(length);
       for(var i = 0; i<length; i++){
-         binaryData[i] = pkg.charCodeAt(i);
+         binaryData[i] = data.charCodeAt(i);
       }
       try{
          this.socket.send(binaryData);
