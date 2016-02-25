@@ -390,7 +390,7 @@ Ext.define('Cntysoft.Global',{
    }
 
 }, function(g){
-   alias = Ext.Function.alias;
+   var alias = Ext.Function.alias;
    Ext.apply(Cntysoft,{
       raiseError : alias(g, 'raiseError'),
       getDomainInfo : alias(g, 'getDomainInfo'),
