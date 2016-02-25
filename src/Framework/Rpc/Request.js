@@ -39,10 +39,10 @@ Ext.define("Cntysoft.Framework.Rpc.Request", {
       this.name = name;
       this.method = method;
       this.args = new Ext.util.HashMap();
-      if(Ext.isObject(args)){
+      if(args && !Ext.isObject(args)){
          Cntysoft.raiseError(Ext.getClassName(this), "constructor", "args must be object type");
       }
-      if(!Ext.Object.isEmpty(args)){
+      if(args && !Ext.Object.isEmpty(args)){
          for(var key in args){
             this.args.add(key, args[key]);
          }
@@ -110,8 +110,7 @@ Ext.define("Cntysoft.Framework.Rpc.Request", {
          name : this.name,
          method : this.method,
          serial : this.serial,
-         socketNum : this.socketNum,
-         extraData : this.extraData
+         socketNum : this.socketNum
       };
       var args = {};
       this.args.each(function(key, item){

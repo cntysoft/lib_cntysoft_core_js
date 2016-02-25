@@ -14,6 +14,7 @@ Ext.define('Cntysoft.Lang.zh_CN', {
             MODIFY : '修改'
          },
          BTN : {
+            ADD: "添加",
             SAVE : '保存',
             RESTORE : '还原',
             RESET : '重置',
@@ -81,7 +82,8 @@ Ext.define('Cntysoft.Lang.zh_CN', {
          MULTI_LOGIN_FAIL : '提示，当前帐号被其他人登录，您被迫下线。<span style = "color:red">可能密码已经泄露，请修改密码。</span>',
          REBOOT_ASK : '尊敬的 <span style = "color:blue;font-weight:bold">{0}</span> , 您确定要注销登录吗？',
          SAVE_REMOTE_IMAGE : '系统正在保存 : <span style = "color:blue"> {0} </span>',
-         NO_REC : '暂无记录'
+         NO_REC : '暂无记录',
+         CONNECT_WEBSOCKET_FAIL : "WebSocket服务器 <span style = 'color:blue'>{0}</span> 连接失败"
       },
       ERROR : {
          UPLOAD_ERR : '上传失败，失败原因 : <span style = "color:red">{0}</span>',

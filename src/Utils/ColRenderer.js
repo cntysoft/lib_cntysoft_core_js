@@ -6,11 +6,11 @@
  * @license    http://www.cntysoft.com/license/new-bsd     New BSD License
  */
 Ext.define('Cntysoft.Utils.ColRenderer', {
-   requires : [
+   requires: [
       'Cntysoft.Utils.Common'
    ],
    statics: {
-      boolRenderer : function(value)
+      boolRenderer: function(value)
       {
          var L = Cntysoft.GET_LANG_TEXT();
          if(value){
@@ -19,8 +19,7 @@ Ext.define('Cntysoft.Utils.ColRenderer', {
             return L.UI.BTN.NO;
          }
       },
-
-      statusRenderer : function(value)
+      statusRenderer: function(value)
       {
          var L = Cntysoft.GET_LANG_TEXT();
          if(value){
@@ -29,12 +28,11 @@ Ext.define('Cntysoft.Utils.ColRenderer', {
             return L.UI.NORMAL;
          }
       },
-
-      timestampRenderer : function(value)
+      timestampRenderer: function(value)
       {
          var L = Cntysoft.GET_LANG_TEXT();
 
-         if(null == value || (!Ext.isNumber(value) && '' == Ext.String.trim(value))){
+         if(null==value||(!Ext.isNumber(value)&&''==Ext.String.trim(value))){
             return L.MSG.NO_REC;
          }else{
             if(!Ext.isNumber(value)){
@@ -44,6 +42,16 @@ Ext.define('Cntysoft.Utils.ColRenderer', {
 
             return Cntysoft.Utils.Common.formatTimestamp2str(value);
          }
+      },
+      filesizeRenderer: function(value)
+      {
+         var a = ["B", "KB", "MB", "GB", "TB", "PB"];
+         var pos = 0;
+         while(value>=1024){
+            value /= 1024;
+            pos++;
+         }
+         return Math.round(value)+" "+a[pos];
       }
    }
 });
