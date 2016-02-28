@@ -107,16 +107,14 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
    request: function(request, callback, scope)
    {
       if(this.connected==false){
-         this.addListener({
-            connected: function(){
+         this.addListener("connected", function(){
                this.request(request, callback, scope);
-            },
-            scope: this
-         })
+            },this, {
+            single : true
+         });
          this.connectToServer();
          return;
       }
-
       callback = Ext.isFunction(callback)?callback:Ext.emptyFn;
       scope = scope?scope:this;
       var serial = this.generateRequestSerial();
@@ -129,7 +127,7 @@ Ext.define("Cntysoft.Framework.Rpc.ServiceInvoker", {
       var data = Ext.util.Base64.encode(request.toJson());
       var extraData = request.getExtraData();
       if(extraData.length > 0){
-         data = data + "\n\n\n" + extraData;
+         data = data + "\r\n\r" + extraData;
       }
       var length = data.length;
       var binaryData = new Uint8Array(length);
