@@ -59,9 +59,16 @@ Ext.define('Cntysoft.Kernel.Utils',{
          var msg;
          var desMsg;
          var errorCode = response.errorCode;
-         var context = response.errorInfo.context;
+         if(Ext.isEmpty(response.errorInfo)){
+            response.errorInfo = {};
+         }
+         var context = response.errorInfo.context || "";
          if(window.CNTYSOFT_IS_DEBUG){
-            msg = response.msg;
+            if(response.msg){
+               msg = response.msg;
+            }else{
+               msg = response.errorString;
+            }
          } else{
             msg = Cntysoft.GET_LANG_TEXT('ERROR.API_CALL_ERROR');
          }

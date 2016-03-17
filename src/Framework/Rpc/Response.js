@@ -41,6 +41,7 @@ Ext.define("Cntysoft.Framework.Rpc.Response",{
     * @var {String} extraData
     */
    extraData : "",
+   isWebsocketResponse : true,
    
    constructor : function(signature, status)
    {
